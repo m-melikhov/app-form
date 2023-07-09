@@ -1,4 +1,78 @@
-<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm.form.value)">
+<form (ngSubmit)="onSubmit()" [formGroup]="userForm">
+
+  <div class="mb-3">
+    <label class="form-label" for="name">{{formLabels.name}}</label>
+    <input (blur)="onValueChanged()"
+      [ngClass]="{'is-valid': name.valid, 'is-invalid': name.invalid && (name.touched || name.dirty)}"
+      [placeholder]="formPlaceholder.name" class="form-control" formControlName="name" id="name" type="text">
+    <div *ngIf="name.valid" class="valid-feedback">{{formSuccess.name}}</div>
+    <div *ngIf="name.invalid && (name.touched || name.dirty)" class="invalid-feedback">{{formErrors.name}}</div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="password">{{formLabels.password}}</label>
+    <input (blur)="onValueChanged()"
+      [ngClass]="{'is-valid': password.valid, 'is-invalid': password.invalid && (password.touched || password.dirty)}"
+      [placeholder]="formPlaceholder.password" class="form-control" formControlName="password" id="password"
+      type="text">
+    <div *ngIf="password.valid" class="valid-feedback">{{formSuccess.password}}</div>
+    <div *ngIf="password.invalid && (password.touched || password.dirty)" class="invalid-feedback">
+      {{formErrors.password}}</div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="email">{{formLabels.email}}</label>
+    <input (blur)="onValueChanged()"
+      [ngClass]="{'is-valid': email.valid, 'is-invalid': email.invalid && (email.touched || email.dirty)}"
+      [placeholder]="formPlaceholder.email" class="form-control" formControlName="email" id="email" type="email">
+    <div *ngIf="email.valid" class="valid-feedback">{{formSuccess.email}}</div>
+    <div *ngIf="email.invalid && (email.touched || email.dirty)" class="invalid-feedback">{{formErrors.email}}</div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="age">{{formLabels.age}}</label>
+    <input (blur)="onValueChanged()"
+      [ngClass]="{'is-valid': age.valid, 'is-invalid': age.invalid && (age.touched || age.dirty)}"
+      [placeholder]="formPlaceholder.age" class="form-control" formControlName="age" id="age" type="text">
+    <div *ngIf="age.valid" class="valid-feedback">{{formSuccess.age}}</div>
+    <div *ngIf="age.invalid && (age.touched || age.dirty)" class="invalid-feedback">{{formErrors.age}}</div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="site">{{formLabels.site}}</label>
+    <input (blur)="onValueChanged()"
+      [ngClass]="{'is-valid': site.valid, 'is-invalid': site.invalid && (site.touched || site.dirty)}"
+      [placeholder]="formPlaceholder.site" class="form-control" formControlName="site" id="site" type="text">
+    <div *ngIf="site.pending" class="text-muted">{{validationMessages.site.pending}}</div>
+    <div *ngIf="site.valid" class="valid-feedback">{{formSuccess.site}}</div>
+    <div *ngIf="site.invalid && (site.touched || site.dirty)" class="invalid-feedback">
+      <div *ngIf="formErrors.site">{{formErrors.site}}</div>
+      <div *ngIf="!formErrors.site && site.errors?.['urlNotAllowed']">{{validationMessages.site.urlNotAllowed}}</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="role" name="role">{{formLabels.role}}</label>
+    <select (blur)="onValueChanged()"
+      [ngClass]="{'is-valid': role.valid, 'is-invalid': role.invalid && (role.touched || role.dirty)}"
+      class="form-select" id="role" formControlName="role">
+      <option [value]="null" disabled selected>{{formPlaceholder.role}}</option>
+      <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+    </select>
+    <div *ngIf="role.valid" class="valid-feedback">{{formSuccess.role}}</div>
+    <div *ngIf="role.invalid && (role.touched || role.dirty)" class="invalid-feedback">{{formErrors.role}}</div>
+  </div>
+
+  <div class="mb-3">
+    <button [disabled]="userForm.invalid" class="btn btn-info" type="submit">Зберегти</button>
+  </div>
+
+</form>
+
+
+
+
+<!-- <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm.form.value)">
 
   <div class="mb-3">
     <label class="form-label" for="name">Імʼя</label>
@@ -25,4 +99,4 @@
     <button [disabled]="userForm.form.invalid" class="btn btn-info" type="submit">Зберегти</button>
   </div>
 
-</form>
+</form> -->
